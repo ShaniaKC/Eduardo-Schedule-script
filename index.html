@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule for 3</title>
+    <script src="./scripts/scheduleFactory.js" defer></script>
+    <script src="./scripts/test.js" defer></script>
+    <link rel="stylesheet" href="./bootstrap-grid.min.css">
+</head>
+<body>
+    <main>
+        <section class="toolbar container-fluid">
+           <div class="container">
+            <div class="row gx-5">
+                <div class="col-xl-2">
+                    <input type="text" id="date-input" class="tool-button" placeholder="Enter Start Date"/>
+                </div>
+                <div class="col-xl-10">
+                    <div class="row">
+                        <div class="tool-button col-xl-3">Additional Settings</div>
+                        <!-- <button class="tool-button col-xl-3 additional-toolbar-item">Workers Names </button> -->
+                        <div class="tool-button col-xl-3 additional-toolbar-item"><span>No of Months</span> <input type="number" name="months" id="months-input" class="tool-number-input" min="1" max="12"></div>
+                        <div class="tool-button col-xl-3 additional-toolbar-item"><span>Shift Length</span> <input type="number" name="shift" id="shift-input" class="tool-number-input"></div>
+                    </div>
+                   
+                </div>
+            </div>
+           </div>
+        </section>
+        <section class="container mt-5">
+            <div class="row schedule">
+                <div class="col-xl-4">
+                    <h3 class="worker-name"></h3>
+                    <div class="worker-schedule">
+
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <h3 class="worker-name"></h3>
+                    <div class="worker-schedule">
+
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <h3 class="worker-name"></h3>
+                    <div class="worker-schedule">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Ubuntu, Roboto,'Open Sans', 'Helvetica Neue', sans-serif;
+        color : #707070;
+    }
+    .toolbar {
+        background-color : #F8F6F6;
+        min-height: 5vh;
+        padding : 2rem .75rem;
+       
+    }
+    #date-input{
+        width: 100%;
+        height: 100%;
+        background-color: white;
+       
+    }
+  
+    .tool-button {
+        border : 1px solid #C4C0C0;
+        padding: .35rem;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        cursor: pointer;
+        font-size: inherit;
+        font-family: inherit;
+    }
+    .additional-toolbar-item {
+        color: #8D8D8D;
+        background-color : #E3E3E3;
+    }
+    .tool-number-input {
+        display: inline-block;
+        padding:0.5rem;
+        border: none;
+        outline: none;
+        font-size: indiv
+    }
+    .schedule h3 {
+        padding-bottom: 1rem;
+        border-bottom: 3px solid #707070;
+    }
+    .schedule-para {
+        margin: .75rem 0;
+    }
+
+</style>
+</html>                                   
