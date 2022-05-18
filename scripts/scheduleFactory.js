@@ -19,7 +19,7 @@ const scheduleFactory = (startDate) => {
       return this;
     },
     getStartDate() {
-      return new Date(this.startDate);
+      return new Date(new Date(this.startDate).toISOString());
     },
     setMonths(num) {
       this.numOfMonths = num;
@@ -67,17 +67,22 @@ const scheduleFactory = (startDate) => {
       };
 
       const createShiftTemplate = (arr, length = this.workShiftLength) => {
-        return arr.map((shiftInstance, index) =>
-          index % 2 == 0
+        return arr.map((shiftInstance, index) => {
+          let newLength =
+            (new Date(arr[index + 1]).getTime() -
+              new Date(shiftInstance).getTime()) /
+            (1000 * 3600 * 24);
+
+          return index % 2 == 0
             ? `Start work on ${shiftInstance} for ${
                 arr[index + 1]
-                  ? (new Date(arr[index + 1]).getTime() -
-                      new Date(shiftInstance).getTime()) /
-                    (1000 * 3600 * 24)
-                  : length
+                  ? newLength % 2 == 0
+                    ? newLength + 1
+                    : newLength
+                  : (length += 1)
               } days`
-            : `End work on ${shiftInstance} evening`
-        );
+            : `End work on ${shiftInstance} evening`;
+        });
       };
 
       let shiftArr = [
