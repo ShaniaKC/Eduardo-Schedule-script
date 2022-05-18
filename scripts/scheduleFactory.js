@@ -69,7 +69,13 @@ const scheduleFactory = (startDate) => {
       const createShiftTemplate = (arr, length = this.workShiftLength) => {
         return arr.map((shiftInstance, index) =>
           index % 2 == 0
-            ? `Start work on ${shiftInstance} for ${length} days`
+            ? `Start work on ${shiftInstance} for ${
+                arr[index + 1]
+                  ? (new Date(arr[index + 1]).getTime() -
+                      new Date(shiftInstance).getTime()) /
+                    (1000 * 3600 * 24)
+                  : length
+              } days`
             : `End work on ${shiftInstance} evening`
         );
       };
