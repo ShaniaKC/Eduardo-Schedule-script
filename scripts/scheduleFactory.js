@@ -15,7 +15,9 @@ const scheduleFactory = (startDate) => {
       return Math.ceil(this.workShiftLength / 2);
     },
     setStartDate(date) {
-      this.startDate = date;
+      this.startDate = new Date(
+        new Date(date).toLocaleString("en-US", { timeZone: "America/Lima" })
+      );
       return this;
     },
     getStartDate() {
@@ -37,30 +39,44 @@ const scheduleFactory = (startDate) => {
 
       let startDay = this.getStartDate().getTime();
       let endDay = this.endDate().getTime();
+      let diff =
+        (endDay - startDay) % 2 == 0
+          ? endDay - startDay + 1
+          : endDay - startDay;
 
+      // let numOfShiftDays = diff / (1000 * 3600 * 24);
       let numOfShiftDays = (endDay - startDay) / (1000 * 3600 * 24);
 
       for (let i = 0; i <= numOfShiftDays; i += this.restPeriodLength()) {
         resultArr.push(
           new Date(
             this.getStartDate().setDate(this.getStartDate().getDate() + i)
-          ).toDateString()
+          )
         );
       }
       return resultArr;
     },
     result() {
       let shiftweeks = this.getShiftWeeks();
-      let arr1 = [shiftweeks[0]],
-        arr2 = [shiftweeks[0]],
-        arr3 = [shiftweeks[1]];
+      let arr1 = [shiftweeks[0].toDateString()],
+        arr2 = [shiftweeks[0].toDateString()],
+        arr3 = [shiftweeks[1].toDateString()];
 
       const incrementFunc = (num) => {
         let resultArr = [];
 
         while (num < shiftweeks.length) {
-          resultArr.push(shiftweeks[num]);
-          shiftweeks[num + 1] && resultArr.push(shiftweeks[num + 1]);
+          resultArr.push(
+            new Date(
+              shiftweeks[num].setDate(shiftweeks[num].getDate())
+            ).toDateString()
+          );
+          shiftweeks[num + 1] &&
+            resultArr.push(
+              new Date(
+                shiftweeks[num + 1].setDate(shiftweeks[num + 1].getDate())
+              ).toDateString()
+            );
           num += 3;
         }
         return resultArr;
@@ -71,15 +87,12 @@ const scheduleFactory = (startDate) => {
           let newLength =
             (new Date(arr[index + 1]).getTime() -
               new Date(shiftInstance).getTime()) /
-            (1000 * 3600 * 24);
+              (1000 * 3600 * 24) +
+            1;
 
           return index % 2 == 0
             ? `Start work on ${shiftInstance} for ${
-                arr[index + 1]
-                  ? newLength % 2 == 0
-                    ? newLength + 1
-                    : newLength
-                  : (length += 1)
+                arr[index + 1] ? newLength : length
               } days`
             : `End work on ${shiftInstance} evening`;
         });
