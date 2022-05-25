@@ -19,6 +19,13 @@ const init = () => {
   });
 
   shiftInput.addEventListener("change", (e) => {
+    
+    e.target.value =
+      e.target.value % 2 == 0
+        ? e.target.value
+        : e.target.value > 2
+        ? e.target.value - 1
+        : 2;
     schedule.setWorkShiftLength(e.target.value);
     console.log(schedule.getMonths());
     updateWorkersSchedule();

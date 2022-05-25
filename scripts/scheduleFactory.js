@@ -39,12 +39,7 @@ const scheduleFactory = (startDate) => {
 
       let startDay = this.getStartDate().getTime();
       let endDay = this.endDate().getTime();
-      let diff =
-        (endDay - startDay) % 2 == 0
-          ? endDay - startDay + 1
-          : endDay - startDay;
 
-      // let numOfShiftDays = diff / (1000 * 3600 * 24);
       let numOfShiftDays = (endDay - startDay) / (1000 * 3600 * 24);
 
       for (let i = 0; i <= numOfShiftDays; i += this.restPeriodLength()) {
